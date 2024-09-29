@@ -1,0 +1,11 @@
+dmitrii@dmitrii-ThinkPad-T14-Gen-1:~/dev/studies/cicd/compse140$ docker container ls
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+e1e1899e3927   myapp/service1:latest   "docker-entrypoint.s…"   33 seconds ago   Up 32 seconds   0.0.0.0:8199->3000/tcp, [::]:8199->3000/tcp   service1
+699f150ea769   myapp/service2:latest   "docker-php-entrypoi…"   33 seconds ago   Up 32 seconds
+
+dmitrii@dmitrii-ThinkPad-T14-Gen-1:~/dev/studies/cicd/compse140$ docker network ls
+NETWORK ID     NAME                        DRIVER    SCOPE
+7a67f2a25dc3   bridge                      bridge    local
+19f2b02288f2   compse140_service-network   bridge    local
+6c593fecbabe   host                        host      local
+73e810813d69   none                        null      local

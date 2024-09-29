@@ -1,0 +1,20 @@
+services:
+  service1:
+    container_name: service1
+    build: service1
+    image: myapp/service1:latest
+    networks:
+      - service-network
+    ports:
+      - "8199:3000"
+  service2:
+    container_name: service2
+    image: myapp/service2:latest
+    build: service2
+    volumes:
+      - ./service2:/var/www/html
+    networks:
+      - service-network
+networks:
+  service-network:
+    driver: bridge

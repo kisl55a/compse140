@@ -1,0 +1,8 @@
+I used ChatGPT. How it helped me:
+- Ask information about lightweight docker images for the services that I created.
+- Ask utils for getting the info from the containers systems (ip address, uptime, processes, etc).
+- Ask for some appearing errors while running the containers.
+
+Motivation - LLMs are easier way to get information + I can ask for additional information that I need.
+LLM mistakes - No observable mistakes.
+LLM not providing information - ChatGPT provided all the information that I asked for (I haven't asked much though).
