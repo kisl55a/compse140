@@ -9,38 +9,43 @@ const server = http.createServer(async (req, res) => {
   const execAsync = promisify(exec);
 
   try {
-    const { stdout: ip } = await execAsync("hostname -i");
-    const { stdout: processes } = await execAsync("ps aux");
-    const { stdout: disk } = await execAsync("df -h");
-    const uptime = process.uptime();
+	const { stdout: ip } = await execAsync("hostname -i");
+	const { stdout: processes } = await execAsync("ps aux");
+	const { stdout: disk } = await execAsync("df -h");
+	const uptime = process.uptime();
 
-    let service2Data = "";
-    await new Promise((resolve, reject) => {
-      http
-        .get("http://service2", (service2Res) => {
-          service2Res.on("data", (chunk) => {
-            service2Data += chunk;
-          });
-          service2Res.on("end", resolve);
-        })
-        .on("error", reject);
-    });
+	let service2Data = "";
+	await new Promise((resolve, reject) => {
+	  http
+		.get("http://service2", (service2Res) => {
+		  service2Res.on("data", (chunk) => {
+			service2Data += chunk;
+		  });
+		  service2Res.on("end", resolve);
+		})
+		.on("error", reject);
+	});
 
-    const response = `
-Service
- - IP address information: ${ip.trim()}
- - list of running processes:\n${processes.trim()}
- - available disk space:\n${disk.trim()}
- - time since last boot: ${Math.floor(uptime)} secs \n
-${service2Data}`;
+	const service2Json = JSON.parse(service2Data);
 
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    res.end(response);
+	const response = {
+	  service: {
+		service: "Service",
+		ip: ip.trim(),
+		running_processes: processes.trim(),
+		available_disk_space: disk.trim(),
+		time_since_last_boot: `${Math.floor(uptime)} secs`,
+	  },
+	  service2: service2Json,
+	};
+
+	res.statusCode = 200;
+	res.setHeader("Content-Type", "application/json");
+	res.end(JSON.stringify(response, null, 2));
   } catch (err) {
-    res.statusCode = 500;
-    res.setHeader("Content-Type", "text/plain");
-    res.end(err.toString());
+	res.statusCode = 500;
+	res.setHeader("Content-Type", "application/json");
+	res.end(JSON.stringify({ error: err.toString() }));
   }
 });
 

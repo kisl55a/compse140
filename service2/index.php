@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/plain');
+header('Content-Type: application/json');
 
 $current_time = time();
 
@@ -12,9 +12,13 @@ $ip = shell_exec('hostname -i');
 $processes = shell_exec('ps aux');
 $disk = shell_exec('df -h');
 
-echo "Service2\n";
-echo " - IP address information: " . trim($ip) . "\n";
-echo " - list of running processes: \n" . trim($processes) . "\n";
-echo " - available disk space: \n" . trim($disk) . "\n";
-echo " - time since last boot: " . $container_uptime_seconds . " secs\n";
+$response = [
+	'service' => 'Service2',
+	'ip' => trim($ip),
+	'running_processes' => trim($processes),
+	'available_disk_space' => trim($disk),
+	'time_since_last_boot' => $container_uptime_seconds . ' secs'
+];
+
+echo json_encode($response, JSON_PRETTY_PRINT);
 ?>
