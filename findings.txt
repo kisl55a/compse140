@@ -1,6 +1,0 @@
-Due to the results that I got from running the commands from the containers I can see that:
-
-1. Network: Containers do not share the same ip address with the host machine. They have their own ip addresses and if I want to access them from the host machine I need to use the ip address of the container or the port that is mapped to the container.
-2. Storage: Containers share the same storage space limits only, they have no access to the host machine files.
-3. Processes: Containers do not share the same processes with the host machine. I can see that the processes that are running in the containers are different from the processes that are running in the host machine. Container processes are scoped to the container and do not affect the host machine.
-4. Time since last boot: `uptime` command gives the time since the last boot of the host machine because containers share the same kernel with the host machine. For the exercise purposes I used different commands to get the actual container uptime. The commands can be seen in the code.

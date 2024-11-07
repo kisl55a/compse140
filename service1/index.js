@@ -42,6 +42,11 @@ const server = http.createServer(async (req, res) => {
 	res.statusCode = 200;
 	res.setHeader("Content-Type", "application/json");
 	res.end(JSON.stringify(response, null, 2));
+
+	// Close the server to prevent further requests
+	server.close(() => {
+	  console.log("Server closed after response.");
+	});
   } catch (err) {
 	res.statusCode = 500;
 	res.setHeader("Content-Type", "application/json");

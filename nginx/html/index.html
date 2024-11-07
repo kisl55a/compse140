@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 4</title>
+</head>
+<body>
+    <h1>Exercise 4</h1>
+    <textarea id="response" rows="50" cols="100"></textarea>
+    <button id="request">REQUEST</button>
+    <button id="stop">STOP</button>
+    <script>
+        document.getElementById('request').addEventListener('click', async () => {
+            const response = await fetch('/control');
+            const data = await response.json();
+            document.getElementById('response').value = JSON.stringify(data, null, 2);
+        });
+        document.getElementById('stop').addEventListener('click', async () => {
+            window.close();
+        });
+    </script>
+</body>
+</html>

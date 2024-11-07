@@ -1,12 +1,22 @@
 services:
-  service1:
-    container_name: service1
+  service1-1:
+    container_name: service1-1
     build: service1
     image: myapp/service1:latest
     networks:
       - service-network
-    ports:
-      - "8199:3000"
+  service1-2:
+    container_name: service1-2
+    build: service1
+    image: myapp/service1:latest
+    networks:
+      - service-network
+  service1-3:
+    container_name: service1-3
+    build: service1
+    image: myapp/service1:latest
+    networks:
+      - service-network
   service2:
     container_name: service2
     image: myapp/service2:latest
@@ -15,6 +25,14 @@ services:
       - ./service2:/var/www/html
     networks:
       - service-network
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "8198:80"
+    networks:
+      - service-network
+
 networks:
   service-network:
     driver: bridge

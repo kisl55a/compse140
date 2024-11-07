@@ -1,11 +1,15 @@
-dmitrii@dmitrii-ThinkPad-T14-Gen-1:~/dev/studies/cicd/compse140$ docker container ls
-CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                         NAMES
-e1e1899e3927   myapp/service1:latest   "docker-entrypoint.s…"   33 seconds ago   Up 32 seconds   0.0.0.0:8199->3000/tcp, [::]:8199->3000/tcp   service1
-699f150ea769   myapp/service2:latest   "docker-php-entrypoi…"   33 seconds ago   Up 32 seconds
+dmitrii@dmitrii-ThinkPad-P14s-Gen-5:~/dev/studies/cicd/compse140$ docker container ls
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+940b2175d1dc   compse140-nginx         "/docker-entrypoint.…"   39 seconds ago   Up 39 seconds   0.0.0.0:8198->80/tcp, [::]:8198->80/tcp   nginx
+5b7d5c5a2ceb   myapp/service1:latest   "docker-entrypoint.s…"   39 seconds ago   Up 39 seconds   3000/tcp                                  service1-2
+52f76ecfeff3   myapp/service2:latest   "docker-php-entrypoi…"   39 seconds ago   Up 39 seconds                                             service2
+8c940ca3f037   myapp/service1:latest   "docker-entrypoint.s…"   39 seconds ago   Up 39 seconds   3000/tcp                                  service1-1
+97190e5903e7   myapp/service1:latest   "docker-entrypoint.s…"   39 seconds ago   Up 39 seconds   3000/tcp                                  service1-3
+dmitrii@dmitrii-ThinkPad-P14s-Gen-5:~/dev/studies/cicd/compse140$
 
-dmitrii@dmitrii-ThinkPad-T14-Gen-1:~/dev/studies/cicd/compse140$ docker network ls
+dmitrii@dmitrii-ThinkPad-P14s-Gen-5:~/dev/studies/cicd/compse140$ docker network ls
 NETWORK ID     NAME                        DRIVER    SCOPE
-7a67f2a25dc3   bridge                      bridge    local
-19f2b02288f2   compse140_service-network   bridge    local
-6c593fecbabe   host                        host      local
-73e810813d69   none                        null      local
+793c98a898ff   bridge                      bridge    local
+66dcca53e561   compse140_service-network   bridge    local
+a114e05d7ce5   host                        host      local
+9fab26e78ad5   none                        null      local
