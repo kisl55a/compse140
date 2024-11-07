@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Exercise 4</title>
 </head>
+
 <body>
     <h1>Exercise 4</h1>
     <textarea id="response" rows="50" cols="100"></textarea>
@@ -16,8 +18,13 @@
             document.getElementById('response').value = JSON.stringify(data, null, 2);
         });
         document.getElementById('stop').addEventListener('click', async () => {
-            window.close();
+            alert('The system is shutting down in approximately 5 secs');
+            await fetch('/stop', { method: 'POST' });
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 5000);
         });
     </script>
 </body>
+
 </html>

@@ -4,9 +4,17 @@ const { promisify } = require("util");
 
 const hostname = "0.0.0.0";
 const port = 3000;
+const execAsync = promisify(exec);
 
 const server = http.createServer(async (req, res) => {
-  const execAsync = promisify(exec);
+  if (req.url === '/stop' && req.method === 'POST') {
+	res.statusCode = 200;
+	res.setHeader("Content-Type", "application/json");
+	res.end(JSON.stringify({ message: "Shut down command received" }));
+	await execAsync('./stop_containers.sh');
+	process.exit(0);
+	return;
+  }
 
   try {
 	const { stdout: ip } = await execAsync("hostname -i");
@@ -45,12 +53,12 @@ const server = http.createServer(async (req, res) => {
 
 	// Close the server to prevent further requests
 	server.close(() => {
-	  console.log("Server closed after response.");
+		console.log("Server closed after response.");
 	});
   } catch (err) {
-	res.statusCode = 500;
-	res.setHeader("Content-Type", "application/json");
-	res.end(JSON.stringify({ error: err.toString() }));
+	  res.statusCode = 500;
+	  res.setHeader("Content-Type", "application/json");
+	  res.end(JSON.stringify({ error: err.toString() }));
   }
 });
 

@@ -3,18 +3,24 @@ services:
     container_name: service1-1
     build: service1
     image: myapp/service1:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - service-network
   service1-2:
     container_name: service1-2
     build: service1
     image: myapp/service1:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - service-network
   service1-3:
     container_name: service1-3
     build: service1
     image: myapp/service1:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - service-network
   service2:
